@@ -1,12 +1,9 @@
-import ListGroup from "./components/ListGroup";
-import "./App.css";
+import Button from "./components/Button";
 
 function App() {
-  const items = ["New York", "London", "Paris", "Tokyo", "Moscow"];
-
   return (
     <div>
-      <ListGroup heading="Miami" items={items} onSelectItem={() => {}} />
+      <Button onClick={() => {}}>My Button</Button>
     </div>
   );
 }
