@@ -1,20 +1,26 @@
-import { AiOutlineHeart } from "react-icons/ai";
-import { FcLike } from "react-icons/fc";
+import { useState } from "react";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 // Have to add props to the function
 // const Like = (props) => {
 // And add react icons to the project
 interface Props {
-  showLike: boolean;
   onClick: () => void;
 }
 
-const Like = ({ showLike, onClick }: Props) => {
-  return (
-    <div onClick={onClick}>
-      {showLike ? <FcLike size={40} /> : <AiOutlineHeart size={40} />}
-    </div>
-  );
+const Like = ({ onClick }: Props) => {
+  const [status, setStatus] = useState(true);
+
+  const toggle = () => {
+    // Whatever status is, set it to the opposite
+    setStatus(!status);
+
+    // Call the onClick function
+    onClick();
+  };
+
+  if (status) return <AiFillHeart color="#ff6b81" size={40} onClick={toggle} />;
+  return <AiOutlineHeart size={40} onClick={toggle} />;
 };
 
 export default Like;
