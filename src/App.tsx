@@ -1,21 +1,14 @@
 import { useState } from "react";
 
 function App() {
-  const [isVisibile, setVisibility] = useState(false);
-  const [isApproved, setApproved] = useState(true);
-  let count = 0;
+  const [person, setPerson] = useState({
+    firstName: "",
+    lastName: "",
+  });
 
-  const handleClick = () => {
-    setVisibility(true);
-    count++;
-    console.log(isVisibile);
-  };
+  const [isLoading, setLoading] = useState(false);
 
-  return (
-    <div>
-      <button onClick={handleClick}>Show</button>
-    </div>
-  );
+  return <div></div>;
 }
 
 export default App;
