@@ -1,19 +1,23 @@
-import Message from "./components/Message";
 import { useState } from "react";
 
 function App() {
-  const [drink, setDrink] = useState({
-    title: "Coca Cola",
-    price: 2.5,
+  const [customer, setCustomer] = useState({
+    name: "John",
+    address: {
+      city: "New York",
+      zipCode: 10001,
+    },
   });
 
   const handleClick = () => {
-    setDrink({ ...drink, price: 3.5 });
+    setCustomer({
+      ...customer,
+      address: { ...customer.address, zipCode: 94112 },
+    });
   };
 
   return (
     <div>
-      {drink.price}
       <button onClick={handleClick}>Click Me</button>
     </div>
   );
