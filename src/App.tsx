@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios, { AxiosError, CanceledError } from "axios";
+import apiClient, { CanceledError } from "./services/api-client";
 import { set } from "react-hook-form";
 
 interface User {
@@ -17,8 +17,8 @@ function App() {
 
     setLoading(true);
 
-    axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+    apiClient
+      .get<User[]>("/users", {
         signal: controller.signal,
       })
       .then((res) => {
@@ -38,12 +38,10 @@ function App() {
     const orginalUsers = [...users];
     setUsers(users.filter((u) => u.id !== user.id));
 
-    axios
-      .delete(`https://jsonplaceholder.typicode.com/users/${user.id}`)
-      .catch((err) => {
-        setError(err.message);
-        setUsers(orginalUsers);
-      });
+    apiClient.delete(`/users/${user.id}`).catch((err) => {
+      setError(err.message);
+      setUsers(orginalUsers);
+    });
   };
 
   const addUser = () => {
@@ -51,8 +49,8 @@ function App() {
     const newUser = { id: 0, name: "Mosh" };
     setUsers([newUser, ...users]);
 
-    axios
-      .post("https://jsonplaceholder.typicode.com/users", newUser)
+    apiClient
+      .post("/users", newUser)
       .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
       .catch((err) => {
         setError(err.message);
@@ -64,8 +62,8 @@ function App() {
     const updatedUser = { ...user, name: user.name + "!" };
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
 
-    axios
-      .patch(`https://jsonplaceholder.typicode.com/users/${user.id}`, {
+    apiClient
+      .patch(`/users/${user.id}`, {
         updatedUser,
       })
       .catch((err) => {
